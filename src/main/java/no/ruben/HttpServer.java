@@ -19,7 +19,8 @@ public class HttpServer {
 
             if (getHeader("Message") != null) {
                 messagesSentToServer++;
-            } else System.out.println("Messages sent to server: " + messagesSentToServer);
+                System.out.println("Messages sent to server: " + messagesSentToServer);
+            }
 
             String headerLine;
             while (!(headerLine = readLine(clientSocket)).isBlank()) {
