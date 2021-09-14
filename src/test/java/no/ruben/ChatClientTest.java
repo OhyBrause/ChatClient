@@ -20,4 +20,11 @@ public class ChatClientTest {
         System.out.println(cc.getMessageBody());
         assertEquals(message, cc.getMessageBody());
     }
+    @Test
+    void testEchoResponseFromRemoteServer() throws IOException {
+        String message = "Halooo";
+        ChatClient cc = new ChatClient("84.212.217.38", 10800, message);
+        System.out.println(cc.getMessageBody());
+        assertEquals(message, cc.getMessageBody());
+    }
 }

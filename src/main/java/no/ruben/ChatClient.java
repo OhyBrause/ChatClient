@@ -19,7 +19,7 @@ public class ChatClient {
             "GET / HTTP/1.1\r\n" +
             "Host: " + host + "\r\n" +
             "Connection: close\r\n" +
-            "message:" + message + "\r\n" +
+            "Message:" + message + "\r\n" +
             "\r\n"
         );
         socket.getOutputStream().write(request.getBytes());
