@@ -9,12 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ChatClientTest {
     @Test
     void test200Response() throws IOException {
-        ChatClient cc = new ChatClient("httpbin.org", "/html", 80, "");
+        ChatClient cc = new ChatClient("httpbin.org", 80, "");
+        System.out.println(cc.getMessageBody());
         assertEquals(200, cc.getResponseCode());
     }
     @Test
-    void testEchoResponseFromServer() throws IOException {
-        ChatClient cc = new ChatClient("httpbin.org", "/", 80, "Heloo");
-        assertEquals("Heloo", cc.GetEchoResponseFromServer());
+    void testEchoResponseFromLocalServer() throws IOException {
+        String message = "Halooo";
+        ChatClient cc = new ChatClient("localhost", 10800, message);
+        System.out.println(cc.getMessageBody());
+        assertEquals(message, cc.getMessageBody());
     }
 }
