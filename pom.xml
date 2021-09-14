@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>no.ruben</groupId>
     <artifactId>ChatClient</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -20,8 +20,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.surefire</groupId>
-                <artifactId>surefire-junit-platform</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
             </plugin>
         </plugins>
