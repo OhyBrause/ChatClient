@@ -12,4 +12,9 @@ public class ChatClientTest {
         ChatClient cc = new ChatClient("httpbin.org", "/html", 80, "");
         assertEquals(200, cc.getResponseCode());
     }
+    @Test
+    void testEchoResponseFromServer() throws IOException {
+        ChatClient cc = new ChatClient("httpbin.org", "/", 80, "Heloo");
+        assertEquals("Heloo", cc.GetEchoResponseFromServer());
+    }
 }

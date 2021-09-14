@@ -34,4 +34,8 @@ public class ChatClient {
     public int getResponseCode() {
         return statusCode;
     }
+
+    public String GetEchoResponseFromServer() {
+        return null;
+    }
 }
