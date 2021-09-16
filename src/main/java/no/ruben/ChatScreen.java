@@ -24,7 +24,7 @@ public class ChatScreen {
             }
         }
 
-        private void sendMessage() throws IOException, InterruptedException {
+        private void sendMessage() throws IOException {
             System.out.println("### WRITE MESSAGE: ###");
             String message = s.nextLine();
             ownMessage = message;
@@ -39,12 +39,12 @@ public class ChatScreen {
                 int available;
                 while ((available = System.in.available()) == 0) {
                     ChatClient cc = new ChatClient(host, 10800, "retrieveLastMessage");
-                    if (!lastMessage.equals(cc.getMessageBody()) &&
-                            !(ownMessage.equals(cc.getMessageBody())) &&
-                            !firstRun) {
+                    if (
+                            !lastMessage.equals(cc.getMessageBody()) &&
+                            !ownMessage.equals(cc.getMessageBody())
+                    ) {
                         lastMessage = cc.getMessageBody();
                         System.out.println(lastMessage);
-                        firstRun = false;
                     }
                     TimeUnit.SECONDS.sleep(1);
                 }
