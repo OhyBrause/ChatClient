@@ -12,35 +12,53 @@ public class HttpServer {
 
     public HttpServer(int port) throws IOException {
         ServerSocket serverSocket = new ServerSocket(port);
+        String lastMessage = "";
 
         while (true) {
             Socket clientSocket = serverSocket.accept();
             readLine(clientSocket);
 
-            if (getHeader("Message") != null) {
-                messagesSentToServer++;
-                System.out.println("Messages sent to server: " + messagesSentToServer);
+            // If client asks for last message
+            if (getHeader("message") != null && getHeader("message").equals("retrieveLastMessage")) {
+
+
+                String response = "HTTP/1.1 200 OK\r\n" +
+                        "Content-Length:" + lastMessage.length() + "\r\n" +
+                        "Connection: Close\r\n" +
+                        "\r\n" +
+                        lastMessage;
+
+                clientSocket.getOutputStream().write(response.getBytes());
+
+
+
+            } else {
+                if (getHeader("Message") != null) {
+                    messagesSentToServer++;
+                    System.out.println("Messages sent to server: " + messagesSentToServer);
+                }
+
+                String headerLine;
+                while (!(headerLine = readLine(clientSocket)).isBlank()) {
+                    int colonPos = headerLine.indexOf(':');
+                    String key = headerLine.substring(0, colonPos);
+                    String value = headerLine.substring(colonPos+1).trim();
+                    headerFields.put(key, value);
+                    System.out.println(key + ":" + value);
+                }
+
+                lastMessage = getHeader("Message");
+                String messageBody = getHeader("Message");
+
+                String response = "HTTP/1.1 200 OK\r\n" +
+                        "Content-Length:" + messageBody.length() + "\r\n" +
+                        "Connection: Close\r\n" +
+                        "\r\n" +
+                        messageBody;
+
+                clientSocket.getOutputStream().write(response.getBytes());
+                System.out.println(messageBody);
             }
-
-            String headerLine;
-            while (!(headerLine = readLine(clientSocket)).isBlank()) {
-                int colonPos = headerLine.indexOf(':');
-                String key = headerLine.substring(0, colonPos);
-                String value = headerLine.substring(colonPos+1).trim();
-                headerFields.put(key, value);
-                System.out.println(key + ":" + value);
-            }
-
-            String messageBody = getHeader("Message");
-
-            String response = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Length:" + messageBody.length() + "\r\n" +
-                    "Connection: Close\r\n" +
-                    "\r\n" +
-                    messageBody;
-
-            clientSocket.getOutputStream().write(response.getBytes());
-            System.out.println(messageBody);
         }
     }
 
