@@ -17,13 +17,15 @@ public class ChatScreen {
     }
 
     public void run() throws IOException, InterruptedException {
-            System.out.println(lastMessage);
-            while(true) {
+            System.out.println(lastMessage); // Prints what the last message was. First time its blank
+            while(true) { // Runs listen to server and send message, until the loop breaks
                 listenToServer();
                 sendMessage();
             }
         }
 
+        // Sets own message to be what the user inputs, then creates a new ChatClient with the
+        // users message.
         private void sendMessage() throws IOException {
             System.out.println("### WRITE MESSAGE: ###");
             String message = s.nextLine();
@@ -31,6 +33,8 @@ public class ChatScreen {
             ChatClient cc = new ChatClient(host, 10800, message);
         }
 
+        // In intervals of 1 second, the server is updated to check if new messages have
+        // been sent
         public void listenToServer() throws IOException, InterruptedException {
             System.out.println("### LISTENING TO SERVER. PRESS [ENTER] TO WRITE MESSAGE ###");
             boolean blankLine = true;
