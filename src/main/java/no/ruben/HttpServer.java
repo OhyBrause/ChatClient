@@ -54,7 +54,7 @@ public class HttpServer {
             String key = headerLine.substring(0, colonPos);
             String value = headerLine.substring(colonPos+1).trim();
             headerFields.put(key, value);
-            System.out.println(key + ":" + value);
+//            System.out.println(key + ":" + value);
         }
     }
 

@@ -39,12 +39,13 @@ public class ChatScreen {
                 int available;
                 while ((available = System.in.available()) == 0) {
                     ChatClient cc = new ChatClient(host, 10800, "retrieveLastMessage");
+                    String incomingMessage = cc.getMessageBody();
                     if (
-                            !lastMessage.equals(cc.getMessageBody()) &&
-                            !ownMessage.equals(cc.getMessageBody())
+                        !lastMessage.equals(incomingMessage) &&
+                        !ownMessage.equals(incomingMessage)
                     ) {
-                        lastMessage = cc.getMessageBody();
-                        System.out.println(lastMessage);
+                        lastMessage = incomingMessage;
+                        System.out.println(incomingMessage);
                     }
                     TimeUnit.SECONDS.sleep(1);
                 }
