@@ -6,10 +6,14 @@ import java.util.concurrent.TimeUnit;
 
 public class ChatScreen {
 
-    String host = "localhost";
+    String host;
     String lastMessage = "";
     String ownMessage = "";
     boolean firstRun = true;
+
+    public ChatScreen(String host) {
+        this.host = host;
+    }
     Scanner s = new Scanner(System.in);
 
     public void run() throws IOException, InterruptedException {
@@ -20,7 +24,7 @@ public class ChatScreen {
             System.out.println(lastMessage);
             while(true) {
                 listenToServer();
-                sendMessage();
+//                sendMessage();
             }
         }
 
@@ -28,7 +32,7 @@ public class ChatScreen {
         System.out.println("### WRITE MESSAGE: ###");
         String message = s.nextLine();
         ownMessage = message;
-        ChatClient cc = new ChatClient("localhost", 10800, message);
+        ChatClient cc = new ChatClient(host, 10800, message);
     }
 
     public void listenToServer() throws IOException, InterruptedException {

@@ -17,11 +17,11 @@ public class HttpServer {
             Socket clientSocket = serverSocket.accept();
             readLine(clientSocket);
             getHeaders(clientSocket);
-            // If client asks for last message
-            System.out.println(headerFields.get("Message"));
+
+            if(!headerFields.get("Message").equals("retrieveLastMessage")) System.out.println(headerFields.get("Message"));
+
             if (    getHeader("Message") == null ||
                     getHeader("Message").equals("retrieveLastMessage")) {
-                System.out.println("retrieve mode");
 
                 String response = "HTTP/1.1 200 OK\r\n" +
                         "Content-Length:" + message.length() + "\r\n" +
@@ -31,10 +31,7 @@ public class HttpServer {
 
                 clientSocket.getOutputStream().write(response.getBytes());
 
-
             } else {
-                System.out.println("add message mode");
-
                 message = getHeader("Message");
                 String messageBody = getHeader("Message");
 
@@ -45,6 +42,7 @@ public class HttpServer {
                         messageBody;
 
                 clientSocket.getOutputStream().write(response.getBytes());
+
             }
         }
     }

@@ -50,7 +50,6 @@ public class ChatClient {
             String key = headerLine.substring(0, colonPos);
             String value = headerLine.substring(colonPos+1).trim();
             headerFields.put(key, value);
-//            System.out.println(key + ":" + value);
         }
     }
 
@@ -66,9 +65,5 @@ public class ChatClient {
 
     public int getResponseCode() {
         return statusCode;
-    }
-
-    public String GetEchoResponseFromServer() {
-        return headerFields.get("Message");
     }
 }
