@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] command) throws IOException, InterruptedException {
         String mode = "-client";
 //        String mode = "-server";
-        while(true) {
+//        while(true) {
             if (mode.equals("-server")) {
                 System.out.println("----------------------");
                 System.out.println("### Server started ###");
@@ -15,11 +15,11 @@ public class Main {
             } else if (mode.equals("-client")) {
                 ChatScreen cs = new ChatScreen();
                 cs.run();
-            } else {
-                System.out.println("[-server] or [-client]. [-q] to quit");
-                mode = System.console().readLine();
-                if (mode.equals("-q")) System.exit(0);
-            }
+//            } else {
+//                System.out.println("[-server] or [-client]. [-q] to quit");
+//                mode = System.console().readLine();
+//                if (mode.equals("-q")) System.exit(0);
+//            }
         }
     }
 }
