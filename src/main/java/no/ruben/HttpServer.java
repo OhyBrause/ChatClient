@@ -18,7 +18,7 @@ public class HttpServer {
             readLine(clientSocket);
             getHeaders(clientSocket);
 
-            if(!headerFields.get("Message").equals("retrieveLastMessage")) System.out.println(headerFields.get("Message"));
+            if(headerFields.get("Message") != null &&!headerFields.get("Message").equals("retrieveLastMessage")) System.out.println(headerFields.get("Message"));
 
             if (    getHeader("Message") == null ||
                     getHeader("Message").equals("retrieveLastMessage")) {
@@ -54,6 +54,7 @@ public class HttpServer {
             String key = headerLine.substring(0, colonPos);
             String value = headerLine.substring(colonPos+1).trim();
             headerFields.put(key, value);
+            System.out.println(key + ":" + value);
         }
     }
 
