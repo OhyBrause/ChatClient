@@ -9,7 +9,7 @@ public class ChatScreen {
     String host;
     String lastMessage = "";
     String ownMessage = "";
-    boolean firstRun = true;
+    boolean firstRun = true; // Never used??
     Scanner s = new Scanner(System.in);
 
     public ChatScreen(String host) {
@@ -40,10 +40,11 @@ public class ChatScreen {
             boolean blankLine = true;
             loop:
             while (true) {
-                int available;
+                int available; // This int represents an estimate of how many bytes that can be read.
                 while ((available = System.in.available()) == 0) {
                     ChatClient cc = new ChatClient(host, 10800, "retrieveLastMessage");
                     String incomingMessage = cc.getMessageBody();
+
                     if (
                         !lastMessage.equals(incomingMessage) &&
                         !ownMessage.equals(incomingMessage)
