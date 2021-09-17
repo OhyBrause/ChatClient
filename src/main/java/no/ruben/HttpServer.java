@@ -7,33 +7,38 @@ import java.net.Socket;
 import java.util.HashMap;
 
 public class HttpServer {
+
+    // This HashMap stores Header Field's name and value, in key-value-pairs.
     final HashMap<String, String> headerFields = new HashMap<>();
 
     public HttpServer(int port) throws IOException {
         ServerSocket serverSocket = new ServerSocket(port);
-        String message = "";
+        String headerMessage = "";
 
         while (true) {
             Socket clientSocket = serverSocket.accept();
             readLine(clientSocket);
             getHeaders(clientSocket);
 
-            if(headerFields.get("Message") != null &&!headerFields.get("Message").equals("retrieveLastMessage")) System.out.println(headerFields.get("Message"));
+            if (    headerFields.get("Message") != null
+                    && !headerFields.get("Message").equals("retrieveLastMessage")) {
+                    System.out.println(headerFields.get("Message"));
+            }
 
             if (    getHeader("Message") == null ||
                     getHeader("Message").equals("retrieveLastMessage")) {
 
                 String response = "HTTP/1.1 200 OK\r\n" +
-                        "Content-Length:" + message.length() + "\r\n" +
+                        "Content-Length:" + headerMessage.length() + "\r\n" +
                         "Connection: Close\r\n" +
                         "\r\n" +
-                        message;
+                        headerMessage;
 
                 clientSocket.getOutputStream().write(response.getBytes());
 
             } else {
-                message = getHeader("Message");
-                String messageBody = getHeader("Message");
+                headerMessage = getHeader("Message");
+                String messageBody = headerMessage; // changed from getHeader("Message"), to headerMessage.
 
                 String response = "HTTP/1.1 200 OK\r\n" +
                         "Content-Length:" + messageBody.length() + "\r\n" +
@@ -54,7 +59,6 @@ public class HttpServer {
             String key = headerLine.substring(0, colonPos);
             String value = headerLine.substring(colonPos+1).trim();
             headerFields.put(key, value);
-//            System.out.println(key + ":" + value);
         }
     }
 
